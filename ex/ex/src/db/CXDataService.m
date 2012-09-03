@@ -353,7 +353,7 @@
 //    
 //    if (_rs) {
 //        while ([_rs next]) {
-//            int mid = [_rs intForColumn:@"id"];
+//            int mid = [_rs 。:@"id"];
 //            [ret_array addObject:[NSNumber numberWithInt:mid]];
 //        }
 //        return [ret_array autorelease];
@@ -368,8 +368,9 @@
 
 #pragma mark - 收藏 methods Implemtions
 - (void)shoucang_add:(int)tNumber andTid:(int)tid andTName:(NSString *)tName{
-    NSLog(@"INFO 收藏 %d:%@",tNumber,tName);
-    [db executeUpdate:@"INSERT INTO tb_shoucang(tid,tnum,tname) VALUES (?,?,?)", tid,tNumber,tName];
+    NSString *ptName = [tName copy];
+    NSLog(@"INFO 收藏 %d:%d:%@",tid,tNumber,tName);
+    [db executeUpdate:@"INSERT INTO tb_shoucang(tid,tnum,tname) VALUES (?,?,?)", tid,tNumber,ptName];
 }
 
 /**
