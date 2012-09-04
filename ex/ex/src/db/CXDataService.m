@@ -370,7 +370,7 @@
 - (void)shoucang_add:(int)tNumber andTid:(int)tid andTName:(NSString *)tName{
     NSString *ptName = [tName copy];
     NSLog(@"INFO 收藏 %d:%d:%@",tid,tNumber,tName);
-    [db executeUpdate:@"INSERT INTO tb_shoucang(tid,tnum,tname) VALUES (?,?,?)", tid,tNumber,ptName];
+    [db executeUpdateWithFormat:@"INSERT INTO tb_shoucang(tid,tnum,tname) VALUES (%d,%d,%@)", tid,tNumber,ptName];
 }
 
 /**
@@ -387,7 +387,9 @@
             NSString *tname = [_rs stringForColumn:@"tname"];
             NSString *ct = [_rs stringForColumn:@"ct"];
     
-            DM_Shoucang *shoucang = [[DM_Shoucang alloc] initWithId:tnumber tname:tname ct:ct];
+            DM_Shoucang *shoucang = [[DM_Shoucang alloc] initWithId:tnumber tid:tnumber tname:tname ct:ct];
+            
+            
             [ret_array addObject:shoucang];
             [shoucang release];
         }

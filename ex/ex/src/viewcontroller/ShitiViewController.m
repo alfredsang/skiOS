@@ -215,7 +215,6 @@
     }
     //    cell.accessoryType = UITableViewCellAccessoryCheckmark;
     //    [cell.accessoryView addSubview:[]]
-    
     [cell.textLabel setFont:[UIFont systemFontOfSize:12]];
     cell.textLabel.textColor  = [UIColor orangeColor];
     cell.textLabel.numberOfLines = 3;
@@ -229,6 +228,31 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleBlue;
     [cell setBackgroundColor:[UIColor clearColor]];
+    
+    
+    NSString *ckey = [NSString stringWithFormat:@"%d",_currentTid];
+    
+    int rightAnwer = 0;
+    int yourAnwer = 0;
+    
+    //判断是否答过该题
+    if ([[[_history getCache] allKeys] containsObject:ckey ]) {
+        NSArray *a = [[[_history getCache] objectForKey:ckey] componentsSeparatedByString:@"-"];
+        
+        rightAnwer = [[a objectAtIndex:0] intValue];
+        yourAnwer = [[a objectAtIndex:1] intValue];
+        
+        if (indexPath.row == yourAnwer-1) {
+            int mid = [_shiti.tanswer intValue] ;
+            if (mid == (indexPath.row+1) ) {
+                [cell.imageView setImage:[UIImage imageNamed:@"icon_selected"]];
+                [cell setHighlighted:YES animated:YES];
+            }else {
+                //        [cell setBackgroundColor:[UIColor grayColor]];
+                [cell.imageView setImage:[UIImage imageNamed:@"photo_icon_cancle"]];
+            }
+        }
+    }
     return cell;
     
 }
@@ -459,7 +483,7 @@
 }
 
 -(IBAction)whenClickShoucangBtn:(UIButton *)sender{
-    [[CXDataService sharedInstance]  shoucang_add:_currentTid andTid:[_shiti.tid intValue] andTName:_shiti.tName];
+    [[CXDataService sharedInstance]  shoucang_add:_currentTid andTid:[_shiti.zid intValue] andTName:_shiti.tName];
 }
 -(IBAction)viewAnswerBtn:(UIButton *)btn{
     int mid = [_shiti.tanswer intValue]-1;
@@ -488,19 +512,27 @@
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(dismissNoteView) object:nil];
     [hintView setNoteInfo:@"真题解读" content:tip iconName:@"weibo_location_selected"];
-    
-
 }
 
 -(IBAction)showSettingsView:(id)sender{
-    SettingsViewController *setView = [[SettingsViewController alloc] init];
+    ListOtherViewController *setView = [[ListOtherViewController alloc] init];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:setView];
     navController.navigationBarHidden = YES;
     [self presentModalViewController:navController animated:YES];
     [navController release];
 }
-
+/**
+ * 题号 翻转动画
+ */
 -(void)tNumberAnimation:(int)dirction andNumber:(int)num{
+    NSString *ckey = [NSString stringWithFormat:@"%d",_currentTid];
+    //判断是否答过该题
+    if ([[[_history getCache] allKeys] containsObject:ckey ]) {
+        self.ui_btn_tNumber.backgroundColor = [UIColor orangeColor];
+    }else{
+        self.ui_btn_tNumber.backgroundColor = [UIColor greenColor];
+    }
+    
     CATransition *animation = [CATransition animation];
     animation.delegate = self;
     animation.duration = kDuration;
@@ -759,8 +791,6 @@
         
     }
     
-    
-    
     [self setShiti:_shiti];
     NSLog(@"%@",_shiti.tName);
     NSLog(@"%@",_shiti.tanswer);
@@ -778,6 +808,7 @@
         //[s release];
         return;
     }
+  
    
     
     //
@@ -819,6 +850,7 @@
     }
     
     [_tableView reloadData];
+    
 }
 
 #pragma mark - noteinfodelegate

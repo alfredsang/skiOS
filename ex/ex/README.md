@@ -30,6 +30,13 @@
 - tanswer     答案
 - tdesc       答案解释或提示
 
+### tb_shoucang结构说明
+
+- scid        自增id
+- tid         章节-带点100100
+- tnum        当前次编号（当前次有用）
+- TNAME       题目名称
+- CREATE_TIME 
 
 
 ### sql记录
@@ -38,6 +45,9 @@
     CREATE TABLE tb_shiti(id INTEGER primary key autoincrement,tid string,zid string,tName text,tPicAddress string , a1 string, a2 string, a3 string, a4 string, a5 string, tanswer string, tdesc string);
 
     insert into tb_shiti(tid,zid,tName, tanswer,  a1, a2, a3, a4,tdesc)  values('1.1.1.1','100100','机动车驾驶人、行人违反道路交通安全法律、法规关于道路通行规定的行为，属于___。','n2','违章行为', '违法行为','过失行为','过错行为','=====违反道路交通安全法律、法规=====明显的是违法，题干已暗示了是=====违法=====行为。');
+
+    CREATE TABLE tb_shoucang(    scid INTEGER primary key autoincrement,
+    tid number,    tnum number,    TNAME VARCHAR2(255),    CREATE_TIME TIMESTAMP DEFAULT (datetime(CURRENT_TIMESTAMP,'localtime')))
 
 
  
@@ -126,6 +136,10 @@ typedef enum {
 
                                 
                                              
+                                             
+### 颜色说明
+- 没答过的题是黑色，题号是绿色
+- 答过的题和题号都是橙色
                                                           
              
 

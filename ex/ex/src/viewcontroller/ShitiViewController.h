@@ -12,7 +12,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <QuartzCore/QuartzCore.h>
 #import "ShitiAnswerTableViewControllerViewController.h"
-#import "SettingsViewController.h"
+#import "ListOtherViewController.h"
 #import "NoteInfoView.h"
 #import "BottomBarView.h"
 #import "AnswerHistoryCache.h"

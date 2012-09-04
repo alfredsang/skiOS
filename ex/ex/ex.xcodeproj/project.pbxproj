@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2522446415F5F9D200104EC0 /* ListOtherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2522446215F5F9D200104EC0 /* ListOtherViewController.m */; };
+		2522446515F5F9D200104EC0 /* ListOtherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2522446315F5F9D200104EC0 /* ListOtherViewController.xib */; };
+		2522446A15F5FBD300104EC0 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2522446815F5FBD200104EC0 /* HistoryViewController.m */; };
+		2522446B15F5FBD300104EC0 /* HistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2522446915F5FBD300104EC0 /* HistoryViewController.xib */; };
+		2522446F15F5FBEE00104EC0 /* CollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2522446D15F5FBED00104EC0 /* CollectViewController.m */; };
+		2522447015F5FBEE00104EC0 /* CollectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2522446E15F5FBEE00104EC0 /* CollectViewController.xib */; };
 		A627177815D1100900BA03B9 /* s1608_result.txt in Resources */ = {isa = PBXBuildFile; fileRef = A627177415D1100900BA03B9 /* s1608_result.txt */; };
 		A627177915D1100900BA03B9 /* shiti.sql in Resources */ = {isa = PBXBuildFile; fileRef = A627177515D1100900BA03B9 /* shiti.sql */; };
 		A627177A15D1100900BA03B9 /* ss.sh in Resources */ = {isa = PBXBuildFile; fileRef = A627177615D1100900BA03B9 /* ss.sh */; };
@@ -1072,6 +1078,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2522446115F5F9D200104EC0 /* ListOtherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListOtherViewController.h; sourceTree = "<group>"; };
+		2522446215F5F9D200104EC0 /* ListOtherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListOtherViewController.m; sourceTree = "<group>"; };
+		2522446315F5F9D200104EC0 /* ListOtherViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListOtherViewController.xib; sourceTree = "<group>"; };
+		2522446715F5FBD200104EC0 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
+		2522446815F5FBD200104EC0 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
+		2522446915F5FBD300104EC0 /* HistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryViewController.xib; sourceTree = "<group>"; };
+		2522446C15F5FBED00104EC0 /* CollectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectViewController.h; sourceTree = "<group>"; };
+		2522446D15F5FBED00104EC0 /* CollectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectViewController.m; sourceTree = "<group>"; };
+		2522446E15F5FBEE00104EC0 /* CollectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CollectViewController.xib; sourceTree = "<group>"; };
 		A627177415D1100900BA03B9 /* s1608_result.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = s1608_result.txt; sourceTree = "<group>"; };
 		A627177515D1100900BA03B9 /* shiti.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = shiti.sql; sourceTree = "<group>"; };
 		A627177615D1100900BA03B9 /* ss.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = ss.sh; sourceTree = "<group>"; };
@@ -3318,6 +3333,15 @@
 				A6D664C715DA301200601253 /* SettingsViewController.h */,
 				A6D664C815DA301200601253 /* SettingsViewController.m */,
 				A6D664C915DA301200601253 /* SettingsViewController.xib */,
+				2522446115F5F9D200104EC0 /* ListOtherViewController.h */,
+				2522446215F5F9D200104EC0 /* ListOtherViewController.m */,
+				2522446315F5F9D200104EC0 /* ListOtherViewController.xib */,
+				2522446715F5FBD200104EC0 /* HistoryViewController.h */,
+				2522446815F5FBD200104EC0 /* HistoryViewController.m */,
+				2522446915F5FBD300104EC0 /* HistoryViewController.xib */,
+				2522446C15F5FBED00104EC0 /* CollectViewController.h */,
+				2522446D15F5FBED00104EC0 /* CollectViewController.m */,
+				2522446E15F5FBEE00104EC0 /* CollectViewController.xib */,
 			);
 			path = viewcontroller;
 			sourceTree = "<group>";
@@ -4721,6 +4745,9 @@
 				A6271E5315D8AE9100BA03B9 /* ShitiAnswerTableViewControllerViewController.xib in Resources */,
 				AABA57CE15D9535300DF1AE0 /* articleView_bottom_bg1.png in Resources */,
 				A6D664CB15DA301200601253 /* SettingsViewController.xib in Resources */,
+				2522446515F5F9D200104EC0 /* ListOtherViewController.xib in Resources */,
+				2522446B15F5FBD300104EC0 /* HistoryViewController.xib in Resources */,
+				2522447015F5FBEE00104EC0 /* CollectViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4797,6 +4824,9 @@
 				AABA57D715D9637100DF1AE0 /* AnswerHistoryCache.m in Sources */,
 				A6D664CA15DA301200601253 /* SettingsViewController.m in Sources */,
 				AA41422315E7CC44007532EB /* DM_Shoucang.m in Sources */,
+				2522446415F5F9D200104EC0 /* ListOtherViewController.m in Sources */,
+				2522446A15F5FBD300104EC0 /* HistoryViewController.m in Sources */,
+				2522446F15F5FBEE00104EC0 /* CollectViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
