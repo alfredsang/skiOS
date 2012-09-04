@@ -67,6 +67,15 @@
     return _cache;
 }
 
+/**
+ * 判断试题是否答过。如果答过返回true
+ */
+- (BOOL)ifTidExist:(int)tid{
+    NSString *ckey = [NSString stringWithFormat:@"%d",tid];
+    return [[_cache allKeys] containsObject:ckey];
+}
+
+
 - (void)dealloc{
     [_cache removeAllObjects];
     [_cache release];

@@ -41,4 +41,6 @@
  */
 - (NSDictionary *)getCache;
 
+- (BOOL)ifTidExist:(int)tid; 
+
 @end

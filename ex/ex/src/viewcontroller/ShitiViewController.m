@@ -230,13 +230,14 @@
     [cell setBackgroundColor:[UIColor clearColor]];
     
     
-    NSString *ckey = [NSString stringWithFormat:@"%d",_currentTid];
+
     
     int rightAnwer = 0;
     int yourAnwer = 0;
     
     //判断是否答过该题
-    if ([[[_history getCache] allKeys] containsObject:ckey ]) {
+    if ([_history ifTidExist:_currentTid]) {
+        NSString *ckey = [NSString stringWithFormat:@"%d",_currentTid];
         NSArray *a = [[[_history getCache] objectForKey:ckey] componentsSeparatedByString:@"-"];
         
         rightAnwer = [[a objectAtIndex:0] intValue];
@@ -525,9 +526,8 @@
  * 题号 翻转动画
  */
 -(void)tNumberAnimation:(int)dirction andNumber:(int)num{
-    NSString *ckey = [NSString stringWithFormat:@"%d",_currentTid];
     //判断是否答过该题
-    if ([[[_history getCache] allKeys] containsObject:ckey ]) {
+    if ([_history ifTidExist:_currentTid]) {
         self.ui_btn_tNumber.backgroundColor = [UIColor orangeColor];
     }else{
         self.ui_btn_tNumber.backgroundColor = [UIColor greenColor];
