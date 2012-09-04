@@ -101,7 +101,7 @@
     
     
     
-    ui_btn_tNumber.backgroundColor = [UIColor orangeColor];
+    ui_btn_tNumber.backgroundColor = [UIColor greenColor];
     
     
     hintView = [[NoteInfoView  alloc] initWithFrame:CGRectMake(0, -120, 320, 120)];
@@ -162,12 +162,14 @@
             //        [cell setBackgroundColor:[UIColor grayColor]];
             [cell.imageView setImage:[UIImage imageNamed:@"photo_icon_cancle"]];
         }
-        
+            
+        //cell.textLabel.textColor  = [UIColor orangeColor];
+        ui_btn_tNumber.backgroundColor = [UIColor orangeColor];
         
         [_history add:[NSString stringWithFormat:@"%d",_currentTid] andAnswer:[NSString stringWithFormat:@"%@-%d",_shiti.tanswer,(indexPath.row+1)]];
     }
     
-    
+     
     
     if (![[NSUserDefaults standardUserDefaults] integerForKey:USER_DEFAULT_ANSWER_MULTI_SHOW]) {
         [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:USER_DEFAULT_ANSWER_MULTI_SHOW];
@@ -177,6 +179,7 @@
         _isAnswered = YES;
     }
     
+    [self performSelector:@selector(handleSwipeFromLeft:) withObject:nil afterDelay:0.5];
 }
 
 
@@ -216,7 +219,7 @@
     //    cell.accessoryType = UITableViewCellAccessoryCheckmark;
     //    [cell.accessoryView addSubview:[]]
     [cell.textLabel setFont:[UIFont systemFontOfSize:12]];
-    cell.textLabel.textColor  = [UIColor orangeColor];
+
     cell.textLabel.numberOfLines = 3;
     
     [cell.imageView setImage:nil];
@@ -245,14 +248,21 @@
         
         if (indexPath.row == yourAnwer-1) {
             int mid = [_shiti.tanswer intValue] ;
-            if (mid == (indexPath.row+1) ) {
+            if (mid == (indexPath.row) ) {
                 [cell.imageView setImage:[UIImage imageNamed:@"icon_selected"]];
                 [cell setHighlighted:YES animated:YES];
             }else {
                 //        [cell setBackgroundColor:[UIColor grayColor]];
                 [cell.imageView setImage:[UIImage imageNamed:@"photo_icon_cancle"]];
             }
+            //答过的题颜色是橙色
+            //cell.textLabel.textColor  = [UIColor orangeColor];
         }
+        
+    }
+    else{
+        //未答过的题颜色是黑色
+        //cell.textLabel.textColor  = [UIColor blackColor];
     }
     return cell;
     
@@ -598,15 +608,16 @@
     //如果下拉，答题模式为问题模式
     _myViewMode = view_model_question;
     
-    [UIView animateWithDuration:1 delay:0.2 options:UIViewAnimationOptionAutoreverse animations:^{
+    [UIView animateWithDuration:1 delay:0.2 options:UIViewAnimationOptionCurveEaseOut animations:^{
         CGRect g =  self.ui_bgPic.frame;
         g.origin.y = 0;
         g.size.height=480.0f;
         self.ui_bgPic.frame = g;
-    } completion:^(BOOL finished) {
         CGRect f = self.view.frame;
         f.origin.y = 0;
         self.view.frame = f;
+    } completion:^(BOOL finished) {
+       
     }];
     
     
