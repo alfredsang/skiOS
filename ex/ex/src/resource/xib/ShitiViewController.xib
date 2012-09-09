@@ -33,6 +33,22 @@
 				<string key="IBProxiedObjectIdentifier">IBFirstResponder</string>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
+			<object class="IBUIView" id="846030315">
+				<reference key="NSNextResponder"/>
+				<int key="NSvFlags">292</int>
+				<string key="NSFrameSize">{320, 480}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
+				<string key="NSReuseIdentifierKey">_NS:9</string>
+				<object class="NSColor" key="IBUIBackgroundColor">
+					<int key="NSColorSpace">3</int>
+					<bytes key="NSWhite">MQA</bytes>
+					<object class="NSColorSpace" key="NSCustomColorSpace" id="865164507">
+						<int key="NSID">2</int>
+					</object>
+				</object>
+				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+			</object>
 			<object class="IBUIView" id="191373211">
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
@@ -347,19 +363,22 @@
 						<bool key="IBUIOpaque">NO</bool>
 						<int key="IBUITag">10004</int>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<bool key="IBUIHighlighted">YES</bool>
+						<bool key="IBUISelected">YES</bool>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<string key="IBUINormalTitle">转发</string>
+						<string key="IBUINormalTitle">翻页方式</string>
 						<reference key="IBUIHighlightedTitleColor" ref="541632638"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="96730430"/>
-						<object class="NSCustomResource" key="IBUINormalImage">
+						<object class="NSCustomResource" key="IBUIHighlightedImage" id="636831612">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">artilce_icon_transmit.png</string>
+							<string key="NSResourceName">filterLeftRotation.png</string>
 						</object>
+						<reference key="IBUINormalImage" ref="636831612"/>
 						<reference key="IBUIFontDescription" ref="273105609"/>
 						<reference key="IBUIFont" ref="866907976"/>
 					</object>
@@ -429,23 +448,13 @@
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MQA</bytes>
-					<object class="NSColorSpace" key="NSCustomColorSpace">
-						<int key="NSID">2</int>
-					</object>
+					<reference key="NSCustomColorSpace" ref="865164507"/>
 				</object>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
 			<array class="NSMutableArray" key="connectionRecords">
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">view</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="191373211"/>
-					</object>
-					<int key="connectionID">3</int>
-				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">ui_tName</string>
@@ -511,6 +520,30 @@
 					<int key="connectionID">64</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">view</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="846030315"/>
+					</object>
+					<int key="connectionID">72</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">ui_btn_shoucang</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="579957551"/>
+					</object>
+					<int key="connectionID">73</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">ui_btn_flip</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="708592397"/>
+					</object>
+					<int key="connectionID">74</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">right:</string>
 						<reference key="source" ref="332410776"/>
@@ -563,6 +596,15 @@
 						<int key="IBEventType">7</int>
 					</object>
 					<int key="connectionID">52</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">whenClickFilpControlBtn:</string>
+						<reference key="source" ref="708592397"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">75</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -681,6 +723,11 @@
 						<reference key="object" ref="715234924"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">71</int>
+						<reference key="object" ref="846030315"/>
+						<reference key="parent" ref="0"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -700,17 +747,19 @@
 				<string key="51.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<real value="1" key="51.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="53.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<real value="1" key="53.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="54.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="55.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="57.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="61.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="71.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">66</int>
+			<int key="maxID">75</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -724,6 +773,8 @@
 						<string key="right:">id</string>
 						<string key="showSettingsView:">id</string>
 						<string key="viewAnswerBtn:">UIButton</string>
+						<string key="whenClickCloseAnswerPatternBtn:">id</string>
+						<string key="whenClickFilpControlBtn:">UIButton</string>
 						<string key="whenClickShoucangBtn:">UIButton</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
@@ -751,53 +802,43 @@
 							<string key="name">viewAnswerBtn:</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
+						<object class="IBActionInfo" key="whenClickCloseAnswerPatternBtn:">
+							<string key="name">whenClickCloseAnswerPatternBtn:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="whenClickFilpControlBtn:">
+							<string key="name">whenClickFilpControlBtn:</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
 						<object class="IBActionInfo" key="whenClickShoucangBtn:">
 							<string key="name">whenClickShoucangBtn:</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="ui_a1">UIButton</string>
-						<string key="ui_a2">UIButton</string>
-						<string key="ui_a3">UIButton</string>
-						<string key="ui_a4">UIButton</string>
-						<string key="ui_a5">UIButton</string>
 						<string key="ui_bgPic">UIImageView</string>
+						<string key="ui_btn_flip">UIButton</string>
+						<string key="ui_btn_shoucang">UIButton</string>
 						<string key="ui_btn_tNumber">UIButton</string>
 						<string key="ui_config">UIButton</string>
 						<string key="ui_left">UIButton</string>
 						<string key="ui_right">UIButton</string>
 						<string key="ui_tName">UILabel</string>
 						<string key="ui_tPicAddr">UIImageView</string>
-						<string key="ui_tanswer">UILabel</string>
-						<string key="ui_tdesc">UILabel</string>
 						<string key="ui_ttid">UILabel</string>
-						<string key="ui_tzid">UILabel</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="ui_a1">
-							<string key="name">ui_a1</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="ui_a2">
-							<string key="name">ui_a2</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="ui_a3">
-							<string key="name">ui_a3</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="ui_a4">
-							<string key="name">ui_a4</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="ui_a5">
-							<string key="name">ui_a5</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="ui_bgPic">
 							<string key="name">ui_bgPic</string>
 							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="ui_btn_flip">
+							<string key="name">ui_btn_flip</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="ui_btn_shoucang">
+							<string key="name">ui_btn_shoucang</string>
+							<string key="candidateClassName">UIButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="ui_btn_tNumber">
 							<string key="name">ui_btn_tNumber</string>
@@ -823,20 +864,8 @@
 							<string key="name">ui_tPicAddr</string>
 							<string key="candidateClassName">UIImageView</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="ui_tanswer">
-							<string key="name">ui_tanswer</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="ui_tdesc">
-							<string key="name">ui_tdesc</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="ui_ttid">
 							<string key="name">ui_ttid</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="ui_tzid">
-							<string key="name">ui_tzid</string>
 							<string key="candidateClassName">UILabel</string>
 						</object>
 					</dictionary>
@@ -862,8 +891,8 @@
 			<string key="artilce_icon_catalog.png">{32, 32}</string>
 			<string key="artilce_icon_collect.png">{32, 32}</string>
 			<string key="artilce_icon_comment.png">{32, 32}</string>
-			<string key="artilce_icon_transmit.png">{32, 32}</string>
 			<string key="back_page.png">{32, 32}</string>
+			<string key="filterLeftRotation.png">{32, 32}</string>
 			<string key="page_bg.png">{640, 960}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1498</string>

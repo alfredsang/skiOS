@@ -32,7 +32,7 @@
 
 - (id)init{
     if (self == [super init]) {
-        _myPattern = PatternModel_Exam;
+        _myPattern = PatternModel_Seq;
     }
     return self;
 }
@@ -628,7 +628,7 @@
         return;
     }
     switch (_myPattern) {
-        case PatternModel_Exam:
+        case PatternModel_Seq:
             _dsKeyArray = [[RandomUtils getRandomCollection:0 to:1000 count:101] retain];
             _dsId = [[_dsKeyArray objectAtIndex:_currentTid] intValue];
             break;

@@ -3,7 +3,7 @@
 //  ex
 //
 //  Created by alfred sang on 12-8-2.
-//  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012年 no320.com. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -53,52 +53,104 @@ typedef enum {
     BottomBarView *_bottomBarView;
     
     int c;
+    
+    UIView *_shitiView;
+    /**
+     * 关闭答案模式按钮
+     */
+    UIButton *ui_btn_closeAnswerPattern;
 }
 
+#pragma mark - properties implemetions
+
+/**
+ * 背景图片
+ */
 @property(nonatomic,retain,readwrite) IBOutlet UIImageView *ui_bgPic;
-/** 
+
+/**
  * 题号
  */
 @property(nonatomic,retain,readwrite) IBOutlet UIButton *ui_btn_tNumber;
+/**
+ * 题目正文
+ */
 @property(nonatomic,retain,readwrite) IBOutlet UILabel *ui_tName;
+/**
+ * 图片
+ */
 @property(nonatomic,retain,readwrite) IBOutlet UIImageView *ui_tPicAddr;
-@property(nonatomic,retain,readwrite) IBOutlet UIButton *ui_a1;
-@property(nonatomic,retain,readwrite) IBOutlet UIButton *ui_a2;
-@property(nonatomic,retain,readwrite) IBOutlet UIButton *ui_a3;
-@property(nonatomic,retain,readwrite) IBOutlet UIButton *ui_a4;
-@property(nonatomic,retain,readwrite) IBOutlet UIButton *ui_a5;
-@property(nonatomic,assign,readwrite) IBOutlet UILabel *ui_tanswer;
-@property(nonatomic,retain,readwrite) IBOutlet UILabel *ui_tdesc;
-@property(nonatomic,retain,readwrite) IBOutlet UILabel *ui_tzid;
+/**
+ * 题号
+ */
 @property(nonatomic,retain,readwrite) IBOutlet UILabel *ui_ttid;
-
+/**
+ * 左翻按钮
+ */
 @property(nonatomic,retain,readwrite) IBOutlet UIButton *ui_left;
+/**
+ * 右翻按钮
+ */
 @property(nonatomic,retain,readwrite) IBOutlet UIButton *ui_right;
-
+/**
+ * 左翻按钮
+ */
 @property(nonatomic,retain,readwrite) IBOutlet UIButton *ui_config;
+ 
+/**
+ * 收藏按钮
+ */
+@property(nonatomic,retain,readwrite) IBOutlet UIButton *ui_btn_shoucang;
 
-@property(nonatomic,assign,readwrite)  int typeID;
+/**
+ * 翻页控制按钮
+ */
+@property(nonatomic,retain,readwrite) IBOutlet UIButton *ui_btn_flip;
 
+#pragma mark - methods implemetions
 
+/**
+ * 根据MyPatternModel初始化数据
+ *      PatternModel_Seq = 0,//顺序练习
+ *      PatternModel_Random = 1,//随机练习
+ *      PatternModel_Chapter = 2,//章节练习
+ */
 - (id)initWithPattern:(MyPatternModel)myPattern;
 
-- (void)handleSwipeFromLeft:(UISwipeGestureRecognizer *)recognize;
-
+/**
+ * 跳转到制定页面，更新对应tPageNumber的试题
+ */
 -(void)jumpTo:(NSNumber *)tPageNumber;
 
+/**
+ * 左翻事件响应
+ */
 -(IBAction)left:(id)sender;
+
+/**
+ * 右翻事件响应
+ */
 -(IBAction)right:(id)sender;
 
 /**
  * 当点击收藏按钮时，触发的事件
  */
 -(IBAction)whenClickShoucangBtn:(UIButton *)sender;
+
+/**
+ * 当点击翻页控制按钮按钮时，触发的事件
+ */
+-(IBAction)whenClickFilpControlBtn:(UIButton *)sender;
+
+
 /**
  * 查看答案
  */
 -(IBAction)viewAnswerBtn:(UIButton *)sender;
  
-
+/**
+ * 显示附加功能列表
+ */
 -(IBAction)showSettingsView:(id)sender;
 
 @end

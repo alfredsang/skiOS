@@ -367,10 +367,11 @@
 
 
 #pragma mark - 收藏 methods Implemtions
-- (void)shoucang_add:(int)tNumber andTid:(int)tid andTName:(NSString *)tName{
+- (BOOL)shoucang_add:(int)tNumber andTid:(int)tid andTName:(NSString *)tName{
     NSString *ptName = [tName copy];
     NSLog(@"INFO 收藏 %d:%d:%@",tid,tNumber,tName);
-    [db executeUpdateWithFormat:@"INSERT INTO tb_shoucang(tid,tnum,tname) VALUES (%d,%d,%@)", tid,tNumber,ptName];
+    BOOL t = [db executeUpdateWithFormat:@"INSERT INTO tb_shoucang(tid,tnum,tname) VALUES (%d,%d,%@)", tid,tNumber,ptName];
+    return t;
 }
 
 /**

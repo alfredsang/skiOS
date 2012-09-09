@@ -64,17 +64,15 @@
 */
 
 #pragma mark - UIResponder
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    self.hidden = YES;
-    
-    if ([vDelegate respondsToSelector:@selector(whenNoteInfoViewDismiss)]) {
-        [vDelegate whenNoteInfoViewDismiss];
-    }
-}
-
+//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+//    self.hidden = YES;
+//    
+//    if ([vDelegate respondsToSelector:@selector(whenNoteInfoViewDismiss)]) {
+//        [vDelegate whenNoteInfoViewDismiss];
+//    }
+//}
 
 - (void)dealloc{
-    
     [super dealloc];
 }
 

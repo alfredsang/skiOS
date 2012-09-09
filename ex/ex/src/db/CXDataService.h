@@ -53,7 +53,7 @@
  * tNumber = 题号
  * tName   = 试题说明
  */
-- (void)shoucang_add:(int)tNumber andTid:(int)tid andTName:(NSString *)tName;
+- (BOOL)shoucang_add:(int)tNumber andTid:(int)tid andTName:(NSString *)tName;
 
 /**
  * 查处所有收藏

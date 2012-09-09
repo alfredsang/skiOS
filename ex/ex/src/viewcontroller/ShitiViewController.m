@@ -17,19 +17,12 @@
 @synthesize ui_btn_tNumber;
 @synthesize ui_tName;
 @synthesize ui_tPicAddr;
-@synthesize ui_a1;
-@synthesize ui_a2;
-@synthesize ui_a3;
-@synthesize ui_a4;
-@synthesize ui_a5;
-@synthesize ui_tanswer;
-@synthesize ui_tdesc;
 @synthesize ui_ttid;
-@synthesize ui_tzid;
 @synthesize ui_left,ui_right;
 @synthesize ui_config;
+@synthesize ui_btn_shoucang;
+@synthesize ui_btn_flip;
 
-@synthesize typeID;
 
 - (id)initWithPattern:(MyPatternModel)myPattern{
     if (self == [super init]) {
@@ -46,16 +39,7 @@
     [ui_btn_tNumber release];
     [ui_tName release];
     [ui_tPicAddr release];
-    [ui_a1 release];
-    [ui_a2 release];
-    [ui_a3 release];
-    [ui_a4 release];
-    [ui_a5 release];
-    [ui_tanswer release];
-    [ui_tdesc release];
     [ui_ttid release];
-    [ui_tzid release];
-    
     [hintView release];
     [super dealloc];
 }
@@ -71,9 +55,6 @@
         case PatternModel_Chapter:
             [self p_chater];
             break;
-        case PatternModel_Exam:
-            [self p_exam];
-            break;
         default:
             break;
     }
@@ -87,6 +68,34 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+
+    if (![[NSUserDefaults standardUserDefaults] integerForKey:USER_DEFAULT_FLIP_AUTO_TAG]) {
+        [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:USER_DEFAULT_FLIP_AUTO_TAG];
+    }
+    
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:USER_DEFAULT_FLIP_AUTO_TAG] == 0) {
+        //        filterLeftRotation |  filterHorizontalFlip
+        [ui_btn_flip setImage:[UIImage imageNamed:@"filterLeftRotation"] forState:UIControlStateHighlighted];
+    }
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:USER_DEFAULT_FLIP_AUTO_TAG] == 1) {
+        //        filterLeftRotation |  filterHorizontalFlip
+        [ui_btn_flip setImage:[UIImage imageNamed:@"filterHorizontalFlip"] forState:UIControlStateHighlighted];
+    }
+    
+    
+    _shitiView = [[[NSBundle mainBundle] loadNibNamed:@"ShitiViewController" owner:self options:nil] objectAtIndex:1];
+    [self.view addSubview:_shitiView];
+    
+    ui_btn_closeAnswerPattern = [UIButton buttonWithType:UIButtonTypeCustom];
+    [ui_btn_closeAnswerPattern setImage:[UIImage imageNamed:@"loading_cancel"] forState:UIControlStateNormal];
+    [ui_btn_closeAnswerPattern setImage:[UIImage imageNamed:@"nil"] forState:UIControlStateHighlighted];
+
+  
+    [ui_btn_closeAnswerPattern addTarget:self action:@selector(whenClickCloseAnswerPatternBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
+ 
+    
     // Do any additional setup after loading the view from its nib.
     _isAnswered = FALSE;
     
@@ -94,17 +103,17 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [_tableView setBackgroundColor:[UIColor clearColor]];
-    [self.view addSubview:_tableView];
+    [_shitiView addSubview:_tableView];
     [_tableView setScrollEnabled:NO];
-    
+    //初始化表格数据
     items = [[NSMutableArray alloc] init];
     
     
     
     ui_btn_tNumber.backgroundColor = [UIColor greenColor];
     
-    
-    hintView = [[NoteInfoView  alloc] initWithFrame:CGRectMake(0, -120, 320, 120)];
+    //width=314,否则第一次下拉，会比背景宽6像素
+    hintView = [[NoteInfoView  alloc] initWithFrame:CGRectMake(0, -120, 314, 120)];
     [self.view addSubview:hintView];
     
     _currentTid = 1;
@@ -120,11 +129,14 @@
     //    s.view.frame = CGRectMake(10, 180, 300, 195);
     //
     
+    [hintView addSubview:ui_btn_closeAnswerPattern];
     
     
     //    [self.view addSubview:s.view];
     [self.view bringSubviewToFront:self.ui_left];
     [self.view bringSubviewToFront:self.ui_right];
+    self.view.frame = CGRectMake(0, 0, 320, 480);
+    self.view.bounds = CGRectMake(0, 0, 320, 480);
 }
 
 #pragma mark - Table view delegate
@@ -139,8 +151,6 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      [detailViewController release];
      */
-    
-    
     
     if (!_isAnswered) {
         for (int i = 0; i<[items count]; i++) {
@@ -169,8 +179,6 @@
         [_history add:[NSString stringWithFormat:@"%d",_currentTid] andAnswer:[NSString stringWithFormat:@"%@-%d",_shiti.tanswer,(indexPath.row+1)]];
     }
     
-     
-    
     if (![[NSUserDefaults standardUserDefaults] integerForKey:USER_DEFAULT_ANSWER_MULTI_SHOW]) {
         [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:USER_DEFAULT_ANSWER_MULTI_SHOW];
     }
@@ -179,7 +187,10 @@
         _isAnswered = YES;
     }
     
-    [self performSelector:@selector(handleSwipeFromLeft:) withObject:nil afterDelay:0.5];
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:USER_DEFAULT_FLIP_AUTO_TAG]==1) {
+        [self performSelector:@selector(handleSwipeFromLeft:) withObject:nil afterDelay:0.5];
+    }
+
 }
 
 
@@ -201,17 +212,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     _isAnswered = NO;
-    //    static NSString *CellIdentifier = @"BirdSightingCell";
-    //    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    //    cell.frame = CGRectMake(0, 0, 320, 40);
-    //    // Configure the cell...
-    //
-    //    UIView *a = [UIView new];
-    //    a.frame = CGRectMake(0, 0, 320, 40);
-    //    [cell addSubview:a];
-    ////    [[cell textLabel] setText:@"sss"];
-    //
-    //    return cell;
+
     UITableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (cell==nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
@@ -232,8 +233,6 @@
     cell.selectionStyle = UITableViewCellSelectionStyleBlue;
     [cell setBackgroundColor:[UIColor clearColor]];
     
-    
-
     
     int rightAnwer = 0;
     int yourAnwer = 0;
@@ -298,12 +297,12 @@
     [[self view] addGestureRecognizer:recognizer];
     [recognizer release];
     
-    UITapGestureRecognizer *tg = [[UITapGestureRecognizer alloc] init];
-    [tg addTarget:self action:@selector(tap:)];
-    tg.numberOfTapsRequired=1;
-    tg.numberOfTouchesRequired =1;
-    [[self ui_tName] addGestureRecognizer:tg];
-    [tg release];
+//    UITapGestureRecognizer *tg = [[UITapGestureRecognizer alloc] init];
+////    [tg addTarget:self action:@selector(tap:)];
+//    tg.numberOfTapsRequired=1;
+//    tg.numberOfTouchesRequired =1;
+//    [[self ui_tName] addGestureRecognizer:tg];
+//    [tg release];
     
 }
 
@@ -388,7 +387,7 @@
 }
 
 -(IBAction)left:(id)sender{
-    if (_currentTid > 0) {
+    if (_currentTid > 1) {
         _currentTid--;
         
         [self getShiti];
@@ -493,9 +492,51 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
+
 -(IBAction)whenClickShoucangBtn:(UIButton *)sender{
-    [[CXDataService sharedInstance]  shoucang_add:_currentTid andTid:[_shiti.zid intValue] andTName:_shiti.tName];
+    BOOL t= [[CXDataService sharedInstance]  shoucang_add:_currentTid andTid:[_shiti.zid intValue] andTName:_shiti.tName];
+    
+    if (t) {
+        [ui_btn_shoucang setImage:[UIImage imageNamed:@"artilce_icon_collect_fav"] forState:UIControlStateNormal];
+    }else{
+        UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"消息提示" message:@"收藏失败,之前已收藏" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] autorelease];
+        [alert show];
+    }
 }
+
+/**
+ * 当点击翻页控制按钮按钮时，触发的事件
+ */
+-(IBAction)whenClickFilpControlBtn:(UIButton *)sender{
+    if (![[NSUserDefaults standardUserDefaults] integerForKey:USER_DEFAULT_FLIP_AUTO_TAG]) {
+        [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:USER_DEFAULT_FLIP_AUTO_TAG];
+    }
+    
+    int a = [[NSUserDefaults standardUserDefaults] integerForKey:USER_DEFAULT_FLIP_AUTO_TAG];
+    if (a==1) {
+        [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:USER_DEFAULT_FLIP_AUTO_TAG];
+    }else{
+        [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:USER_DEFAULT_FLIP_AUTO_TAG];
+    }
+    
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:USER_DEFAULT_FLIP_AUTO_TAG] == 1) {
+        //        filterLeftRotation |  filterHorizontalFlip
+        [ui_btn_flip setImage:[UIImage imageNamed:@"filterLeftRotation"] forState:UIControlStateHighlighted];
+        [ui_btn_flip setImage:[UIImage imageNamed:@"filterLeftRotation"] forState:UIControlStateNormal];
+        [ui_btn_flip setImage:[UIImage imageNamed:@"filterLeftRotation"] forState:UIControlStateSelected];
+
+    }else{
+          [ui_btn_flip setImage:[UIImage imageNamed:@"filterHorizontalFlip"] forState:UIControlStateHighlighted];
+          [ui_btn_flip setImage:[UIImage imageNamed:@"filterHorizontalFlip"] forState:UIControlStateNormal];
+        [ui_btn_flip setImage:[UIImage imageNamed:@"filterHorizontalFlip"] forState:UIControlStateSelected];
+    }
+ 
+    ui_btn_flip.selected = YES;
+    ui_btn_flip.highlighted = YES;
+}
+
+
+
 -(IBAction)viewAnswerBtn:(UIButton *)btn{
     int mid = [_shiti.tanswer intValue]-1;
     
@@ -588,21 +629,39 @@
     [UIView animateWithDuration:1 delay:0.2 options:UIViewAnimationOptionCurveEaseOut animations:^{
         CGRect f = self.view.frame;
         f.origin.y = 120;
-        self.view.frame = f;
+        _shitiView.frame = f;
+        
+        f = hintView.frame;
+        f.size.width = 314;
+        f.origin.y = 0;
+        hintView.frame = f;
     } completion:^(BOOL finished) {
+        
         //[self performSelector:@selector(dismissNoteView) withObject:nil afterDelay:10];
     }];
     CGRect g =  self.ui_bgPic.frame;
     g.origin.y = -120;
     g.size.height=480.0f+120.0f;
     self.ui_bgPic.frame = g;
+
+    [self showCloseAnswerPattern];
+}
+//ui_btn_closeAnswerPattern
+-(void)showCloseAnswerPattern{
+//    self.ui_btn_closeAnswerPattern.backgroundColor = [UIColor redColor];
+//    [self.view addSubview:ui_btn_closeAnswerPattern];
+    ui_btn_closeAnswerPattern.frame = CGRectMake(270, 0, 50, 44);
+    //ui_btn_closeAnswerPattern.bounds = CGRectMake(260, -120, 50, 44);
+    [hintView bringSubviewToFront:ui_btn_closeAnswerPattern];
     
-    CGRect f = hintView.frame;
-    f.size.width = 314;
-    hintView.frame = f;
-    
+//    ui_btn_closeAnswerPattern.enabled=YES;
+//
+//    [ui_btn_closeAnswerPattern addTarget:self action:@selector(dismissNoteView) forControlEvents:UIControlEventTouchUpInside];
 }
 
+-(IBAction)whenClickCloseAnswerPatternBtn:(id)sender{
+    [self dismissNoteView];
+}
 
 - (void)dismissNoteView{
     //如果下拉，答题模式为问题模式
@@ -615,7 +674,13 @@
         self.ui_bgPic.frame = g;
         CGRect f = self.view.frame;
         f.origin.y = 0;
-        self.view.frame = f;
+        _shitiView.frame = f;
+        
+        f = hintView.frame;
+        f.size.width = 314;
+        f.origin.y = -120;
+        hintView.frame = f;
+        
     } completion:^(BOOL finished) {
        
     }];
@@ -647,7 +712,7 @@
     //
     int aa = [[NSUserDefaults standardUserDefaults] integerForKey:USER_DEFAULT_FLIP_ANIMATION_TAG];
     
-    if (aa == nil||aa==0) {
+    if (aa||aa==0) {
         return;
     }
     
@@ -771,9 +836,9 @@
  *90分+通过
  *一个题目一分
  */
-- (void)p_exam{
-    _dsKeyArray = [[RandomUtils getRandomCollection:0 to:1000 count:100] retain];
-}
+//- (void)p_exam{
+//    _dsKeyArray = [[RandomUtils getRandomCollection:0 to:1000 count:100] retain];
+//}
 
 #pragma mark - shiti methods implemetions
 
@@ -820,12 +885,12 @@
         return;
     }
   
-   
     
+    [ui_btn_shoucang setImage:[UIImage imageNamed:@"artilce_icon_collect"] forState:UIControlStateNormal];
     //
     //    self.ui_chapter.text = shiti.chapter;
     self.ui_tName.text = shiti.tName;
-    self.ui_tdesc.text = shiti.tdesc;
+
     self.ui_ttid.text = shiti.tid;
     
     //    [self.ui_tName ]
