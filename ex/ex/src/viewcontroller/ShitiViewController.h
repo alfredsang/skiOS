@@ -109,6 +109,7 @@ typedef enum {
 
 #pragma mark - methods implemetions
 
+-(IBAction)back:(id)sender;
 /**
  * 根据MyPatternModel初始化数据
  *      PatternModel_Seq = 0,//顺序练习

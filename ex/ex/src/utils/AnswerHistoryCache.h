@@ -2,7 +2,7 @@
 //  AnswerHistoryCache.h
 //  ex
 //
-//  Created by minglq on 12-8-14.
+//  Created by alfred.sang on 12-8-14.
 //
 //
 //2012-08-24 21:16:37.309 ex[2119:c07] ----3所对应的value是 2-4
@@ -35,6 +35,18 @@
  * 归档
  */
 - (void)archive;
+
+
+/**
+ * save
+ */
+- (void)saveTo:(NSString *)fileName;
+
+
+/**
+ * restore
+ */
+- (void)restoreTo:(NSString *)fileName;
 
 /**
  * 

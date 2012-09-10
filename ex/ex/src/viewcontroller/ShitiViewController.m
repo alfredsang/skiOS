@@ -8,6 +8,8 @@
 
 #import "ShitiViewController.h"
 
+#define SHITI_SEQ_CACHE_FILE_NAME @"shiti_result.plist"
+
 @interface ShitiViewController ()
 
 @end
@@ -24,12 +26,14 @@
 @synthesize ui_btn_flip;
 
 
+
 - (id)initWithPattern:(MyPatternModel)myPattern{
     if (self == [super init]) {
         _myPattern = myPattern;
         _myViewMode = view_model_question;
         
         _history = [[AnswerHistoryCache alloc] init];
+        [_history restoreTo:SHITI_SEQ_CACHE_FILE_NAME];
         [self processWithPattern];
     }
     return self;
@@ -137,8 +141,32 @@
     [self.view bringSubviewToFront:self.ui_right];
     self.view.frame = CGRectMake(0, 0, 320, 480);
     self.view.bounds = CGRectMake(0, 0, 320, 480);
+    
+    
+    int a = [[_history getCache] count];
+    
+    if (a >0) {
+        NSString *msg = [NSString  stringWithFormat:@"您上次答题未完成，第%d题,是否继续?如果点击【从头开始】按钮，您的答题记录信息将清空。",a];
+        UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"消息提示" message:msg delegate:self cancelButtonTitle:@"从头开始" otherButtonTitles:@"继续", nil] autorelease];
+        [alert show];
+    }
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex==1) {
+        int a = [[_history getCache] count];
+        [self jumpTo:[NSNumber numberWithInt:a]];
+        [ui_btn_tNumber setTitle:[NSString stringWithFormat:@"%d",a] forState:UIControlStateNormal];
+    }
+    if (buttonIndex == 0) {
+        [_history clean];
+        [self jumpTo:[NSNumber numberWithInt:1]];
+    }
+}
+
+- (void)alertViewCancel:(UIAlertView *)alertView{
+
+}
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -488,6 +516,9 @@
 
 
 -(IBAction)back:(id)sender{
+//    [[_history getCache] writeToFile:[self dataFilePath] atomically:YES];
+    
+    [_history saveTo:SHITI_SEQ_CACHE_FILE_NAME];
     [self.navigationController popToRootViewControllerAnimated:YES];
     [self dismissModalViewControllerAnimated:YES];
 }
@@ -938,4 +969,6 @@
         self.view.frame = f;
     }];
 }
+
+
 @end
