@@ -60,4 +60,7 @@
  */
 - (NSMutableArray *)shoucang_find_all;
 
+- (BOOL)cuoti_add:(int)tNumber andTid:(int)tid andTName:(NSString *)tName;
+- (NSMutableArray *)cuoti_find_all;
+
 @end

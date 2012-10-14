@@ -197,6 +197,8 @@
             [cell.imageView setImage:[UIImage imageNamed:@"icon_selected"]];
             [cell setHighlighted:YES animated:YES];
         }else {
+            //错题记录
+            [[CXDataService sharedInstance]  cuoti_add:_currentTid andTid:[_shiti.zid intValue] andTName:_shiti.tName];
             //        [cell setBackgroundColor:[UIColor grayColor]];
             [cell.imageView setImage:[UIImage imageNamed:@"photo_icon_cancle"]];
         }
@@ -205,6 +207,10 @@
         ui_btn_tNumber.backgroundColor = [UIColor orangeColor];
         
         [_history add:[NSString stringWithFormat:@"%d",_currentTid] andAnswer:[NSString stringWithFormat:@"%@-%d",_shiti.tanswer,(indexPath.row+1)]];
+        
+        
+        
+        
     }
     
     if (![[NSUserDefaults standardUserDefaults] integerForKey:USER_DEFAULT_ANSWER_MULTI_SHOW]) {

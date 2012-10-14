@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "RootViewController.h"
+#import "ECategoryViewController.h"
 
 @implementation AppDelegate
 
@@ -30,7 +31,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:ti_count_number] forKey:SHITI_COUNT_NUMBER];
     NSLog(@"ti_count_number = %d",ti_count_number);
     
-    RootViewController *rootVC = [[RootViewController alloc] init];
+    ECategoryViewController *rootVC = [[ECategoryViewController alloc] init];
 //    rootVC.view.frame = self.window.frame;
     [self.window addSubview:rootVC.view];
     [self.window makeKeyAndVisible];
